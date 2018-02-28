@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mission to Mars</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+  body {margin-left: 100px; margin-right: 100px;}
+  .featured {width: 100%;}
+  .content {padding-left: 10px; padding-right: 10px;}
+  .weather {padding: 10px;}
+  .section-2 {padding-top: 65px;}
+  .img {width: 100%; padding: 10px 10px 0px 10px; margin-left: auto; margin-right: auto;}
+  .text-1 {text-align: center; padding-top: 20px;}
+  .text-2 {text-align: center;}
+  </style>
+</head>
+
+<body>
+  <div clas="container">
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+    </div>
+      
+    <!-- Mars data -->
+    <div class="col-md-12">
+      <h2>Latest Mars News</h2>
+      <h3>{{ mars.news_title }}</h3>
+      <p>{{ mars.news_p }}</p>
+    </div>
+
+    <br>
+    
+    <div class="row">
+      <div class="col-md-8">
+        <h2>Featured Mars Image</h2>
+        <img src = {{ mars.featured_image_url }} width: 100%/ class="featured">
+      </div>
+      
+      <br>
+
+      <div class="col-md-4 section-2">
+        <div class="panel panel-default weather">
+          <h3>Current Weather on Mars</h3>
+          <p>{{ mars.mars_weather }}</p>
+        </div>
+        <div>
+          <h3>Mars facts</h3>
+          <table border="1" class="dataframe">
+              <thead>
+                <tr style="text-align: left;">
+                  {% for column in mars.columns %}
+                  <th>{{ column }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                  {% for pair in mars.mars_list %}
+                    {% for key, value in pair.items() %}
+                    <tr>
+                      <th>{{ key }}</th>
+                      <td>{{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                  {% endfor %}
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>  
+
+    <br>
+
+    <div class="col-md-12 text-1">
+      <h2>Mars Hemispheres</h2>
+      <hr>
+    </div>
+    
+    <br>
+
+    <div class="row">
+      {% for hemisphere in mars.Mars_Hemisperes %}
+      <div class="col-md-6">
+        <div class="panel panel-default images">
+         <img src = {{ hemisphere.img_url }} width: 100% class="img"/>
+         <h3 class="text-2">{{ hemisphere.title }}</h3> 
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>
+
